@@ -4,3 +4,6 @@ INSERT INTO plantilla (nombre, id_tipo_doc, id_subtipo_doc, id_producto,usuario_
 INSERT INTO plantilla (nombre, id_tipo_doc, id_subtipo_doc, id_producto,usuario_creador,fecha_creacion, version,status,ambiente,reca,aprobacion, contenido_plantilla) VALUES ('Correo CDN', 1, 2, 3,1 ,'03-03-2021','1.0' ,'no vigente' ,'desarrollo' , '1-11001-1110013','no' ,'XML');
 INSERT INTO plantilla (nombre, id_tipo_doc, id_subtipo_doc, id_producto,usuario_creador,fecha_creacion, version,status,ambiente,reca,aprobacion, contenido_plantilla) VALUES ('Anexo A', 1, 2, 3,1 ,'03-03-2019','1.0' ,'no vigente' ,'desarrollo' , '1-11001-1110013','si' ,'XML');
 INSERT INTO plantilla (nombre, id_tipo_doc, id_subtipo_doc, id_producto,usuario_creador,fecha_creacion, version,status,ambiente,reca,aprobacion, contenido_plantilla) VALUES ('Anexo B', 1, 2, 3,1 ,'03-03-2017','1.0' ,'vigente' ,'desarrollo' , '1-11001-1110013','si' ,'XML');
+
+
+INSERT INTO documento (id_plantilla, fecha_creacion,usuario_creador, version,status,reca,aprobacion, contenido_documento) VALUES (1,'03-03-2017',1 ,'1.1','vigente' ,'1-11001-1110013','si' ,'PXML');

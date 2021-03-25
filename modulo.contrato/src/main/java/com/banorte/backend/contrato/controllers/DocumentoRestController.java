@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,52 +26,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banorte.backend.contrato.models.entity.Plantilla;
-import com.banorte.backend.contrato.models.services.IPlantillaService;
-
+import com.banorte.backend.contrato.models.entity.Documento;
+import com.banorte.backend.contrato.models.services.IDocumentoService;
 
 //@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api")
-public class PlantillaRestController {
-	
+public class DocumentoRestController {
+
 	@Autowired
-	private IPlantillaService plantillaService;
+	private IDocumentoService documentoService;
 	
-	@GetMapping("/plantilla")
-	public List<Plantilla> index(){
-		return plantillaService.findAll();	
+	@GetMapping("/documento")
+	public List<Documento> index(){
+		return documentoService.findAll();	
 	}
 		
-	@GetMapping("/plantilla/page/{page}")
-	public Page<Plantilla> index(@PathVariable Integer page){
+	@GetMapping("/documento/page/{page}")
+	public Page<Documento> index(@PathVariable Integer page){
 		Pageable pageable = PageRequest.of(page, 1);
-		return plantillaService.findAll(pageable);	
+		return documentoService.findAll(pageable);	
 	}
 	//CONSULTAR
-	@GetMapping("/plantilla/{id}")
+	@GetMapping("/documento/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id){
-		Plantilla plantilla = null;
+		Documento documento = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			plantilla = plantillaService.findById(id);
+			documento = documentoService.findById(id);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error en la consulta de base de datos");
 			response.put("Error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		if (plantilla ==null){
-			response.put("mensaje", "El plantilla ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
+		if (documento ==null){
+			response.put("mensaje", "El documento ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);			
 		}
-		return new ResponseEntity<Plantilla>(plantilla, HttpStatus.OK); 		
+		return new ResponseEntity<Documento>(documento, HttpStatus.OK); 		
 	}
 	
 	//ALTA
-	@PostMapping("/plantilla")
-	public ResponseEntity<?> create(@Valid @RequestBody Plantilla plantilla, BindingResult result) {
-		Plantilla plantillaNew = null;
+	@PostMapping("/documento")
+	public ResponseEntity<?> create(@Valid @RequestBody Documento documento, BindingResult result) {
+		Documento documentoNew = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -86,24 +86,24 @@ public class PlantillaRestController {
 		}
 			
 		try {
-			plantillaNew = plantillaService.save(plantilla);
+			documentoNew = documentoService.save(documento);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar en la base de datos");
 			response.put("Error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 		response.put("mensaje", "Creado con exito");
-		response.put("plantilla", plantillaNew);
+		response.put("documento", documentoNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	
 	}
 
 	
 	//ACTIALIZAR
-	@PutMapping("/plantilla/{id}")
-	public ResponseEntity<?> update(@RequestBody Plantilla plantilla,  BindingResult result, @PathVariable Long id){
-		Plantilla plantillaActual = plantillaService.findById(id);
-		Plantilla plantillaUpdated = null;
+	@PutMapping("/documento/{id}")
+	public ResponseEntity<?> update(@RequestBody Documento documento,  BindingResult result, @PathVariable Long id){
+		Documento documentoActual = documentoService.findById(id);
+		Documento documentoUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 		
@@ -119,26 +119,23 @@ public class PlantillaRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
-		if(plantillaActual==null) {
-			response.put("mensaje", "Error: No se  puede editar, la plantilla ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
+		if(documentoActual==null) {
+			response.put("mensaje", "Error: No se  puede editar, el documento ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);			
 		}
 
 		try {
-			plantillaActual.setNombre(plantilla.getNombre());
-			plantillaActual.setId_tipo_doc(plantilla.getId_tipo_doc());
-			plantillaActual.setId_subtipo_doc(plantilla.getId_subtipo_doc());
-			plantillaActual.setId_producto(plantilla.getId_producto());			
-			plantillaActual.setFecha_creacion(plantilla.getFecha_creacion());			
-			plantillaActual.setUsuario_creador(plantilla.getUsuario_creador());			
-			plantillaActual.setVersion(plantilla.getVersion());			
-			plantillaActual.setStatus(plantilla.getStatus());			
-			plantillaActual.setReca(plantilla.getReca());			
-			plantillaActual.setAprobacion(plantilla.getAprobacion());			
-			plantillaActual.setContenido_plantilla(plantilla.getContenido_plantilla());
+			
 
-
-			plantillaUpdated = plantillaService.save(plantillaActual);
+			documentoActual.setFecha_creacion(documento.getFecha_creacion());			
+			documentoActual.setUsuario_creador(documento.getUsuario_creador());			
+			documentoActual.setVersion(documento.getVersion());			
+			documentoActual.setStatus(documento.getStatus());			
+			documentoActual.setReca(documento.getReca());			
+			documentoActual.setAprobacion(documento.getAprobacion());			
+			documentoActual.setContenido_documento(documento.getContenido_documento());
+			
+			documentoUpdated = documentoService.save(documentoActual);
 			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar en la base de datos");
@@ -146,18 +143,18 @@ public class PlantillaRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "Actualizado con exito");
-		response.put("plantilla", plantillaUpdated);		response.put("plantilla", plantillaUpdated);
+		response.put("documento", documentoUpdated);		response.put("documento", documentoUpdated);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);	
 		
 	}
 
 	//ELIMINAR
-	@DeleteMapping("plantilla/{id}")
+	@DeleteMapping("documento/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		
 		Map<String, Object> response = new HashMap<>();
 		try {
-			plantillaService.Delete(id);
+			documentoService.Delete(id);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar en la base de datos");
@@ -167,6 +164,5 @@ public class PlantillaRestController {
 		response.put("mensaje", "Eliminado con exito");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-	
 
 }
