@@ -1,4 +1,4 @@
-package com.banorte.backend.contrato.models.dao;
+package com.banorte.backend.contrato.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

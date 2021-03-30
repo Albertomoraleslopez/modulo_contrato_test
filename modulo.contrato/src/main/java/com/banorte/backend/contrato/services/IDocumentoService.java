@@ -1,4 +1,4 @@
-package com.banorte.backend.contrato.models.services;
+package com.banorte.backend.contrato.services;
 
 import java.util.List;
 

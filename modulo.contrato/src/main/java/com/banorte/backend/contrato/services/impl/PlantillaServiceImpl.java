@@ -1,4 +1,4 @@
-package com.banorte.backend.contrato.models.services;
+package com.banorte.backend.contrato.services.impl;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.banorte.backend.contrato.models.dao.IPlantillaDao;
+import com.banorte.backend.contrato.dao.IPlantillaDao;
 import com.banorte.backend.contrato.models.entity.Plantilla;
+import com.banorte.backend.contrato.services.IPlantillaService;
 
 @Service
 public class PlantillaServiceImpl implements IPlantillaService{

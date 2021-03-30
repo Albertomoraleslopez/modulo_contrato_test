@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banorte.backend.contrato.models.entity.Documento;
-import com.banorte.backend.contrato.models.services.IDocumentoService;
+import com.banorte.backend.contrato.services.IDocumentoService;
 
 //@CrossOrigin("http://localhost:4200")
 @RestController
