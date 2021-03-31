@@ -12,7 +12,7 @@ import com.banorte.backend.contrato.models.entity.Agrupacion;
 import com.banorte.backend.contrato.services.IAgrupacionService;
 
 
-public class AgrupacionService implements IAgrupacionService {
+public class AgrupacionServiceImpl implements IAgrupacionService {
 	@Autowired
 	private IAgrupacionDao agrupacionDao;
 	

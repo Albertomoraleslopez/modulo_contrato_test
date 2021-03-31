@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import com.banorte.backend.contrato.models.entity.Tipo_documento;
 
 
-public interface IServiceTipo_documento {
+public interface ITipo_documentoService {
 
 	
 	public List<Tipo_documento> findAll();

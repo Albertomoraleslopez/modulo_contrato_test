@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import com.banorte.backend.contrato.models.entity.Subtipo_documento;
 
 
-public interface ISubtipo_documento {
+public interface ISubtipo_documentoService {
 	
 	public List<Subtipo_documento> findAll();
 	
