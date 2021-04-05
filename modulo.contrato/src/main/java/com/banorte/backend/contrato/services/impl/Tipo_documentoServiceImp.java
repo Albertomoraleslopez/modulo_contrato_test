@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.banorte.backend.contrato.dao.ITipoDocumentoDao;
 import com.banorte.backend.contrato.models.entity.Tipo_documento;
 import com.banorte.backend.contrato.services.ITipo_documentoService;
 
+
+@Service
 public class Tipo_documentoServiceImp implements ITipo_documentoService {
 
 	@Autowired

@@ -1,18 +1,29 @@
 package com.banorte.backend.contrato.models.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class Subtipo_documento {
+@Entity
+@Table(name = "subtipo_documento")
+public class Subtipo_documento implements Serializable {
 
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@SequenceGenerator(name = "subtipo_doc_seq", sequenceName = "subtipo_doc_id_seq", allocationSize = 1, initialValue = 100)

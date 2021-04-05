@@ -1,3 +1,4 @@
+
 package com.banorte.backend.contrato.controllers;
 
 import java.util.ArrayList;
@@ -168,5 +169,68 @@ public class PlantillaRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
+
+	//Autorizar
+	@PutMapping("/plantilla/validar/{id}")
+	
+	public ResponseEntity<?> validar(BindingResult result, @PathVariable Long id){
+		Plantilla plantillaActual = plantillaService.findById(id);
+		Plantilla plantillaUpdated = null;
+		Plantilla plantilla = null;
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			plantilla = plantillaService.findById(id);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error en la consulta de base de datos");
+			response.put("Error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+				
+		if(result.hasErrors()) {
+			
+			List<String> errors = new ArrayList<String>();			
+			
+			for(FieldError err : result.getFieldErrors()) {
+				errors.add("El campo"+err.getDefaultMessage());
+			}
+			
+			response.put("Errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		if(plantillaActual==null) {
+			response.put("mensaje", "Error: No se  puede editar, la plantilla ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);			
+		}
+
+		try {
+			plantillaActual.setNombre(plantilla.getNombre());
+			plantillaActual.setId_tipo_doc(plantilla.getId_tipo_doc());
+			plantillaActual.setId_subtipo_doc(plantilla.getId_subtipo_doc());
+			plantillaActual.setId_producto(plantilla.getId_producto());			
+			plantillaActual.setFecha_creacion(plantilla.getFecha_creacion());			
+			plantillaActual.setUsuario_creador(plantilla.getUsuario_creador());			
+			plantillaActual.setVersion(plantilla.getVersion());			
+			plantillaActual.setStatus(plantilla.getStatus());			
+			plantillaActual.setReca(plantilla.getReca());			
+			plantillaActual.setAprobacion(plantilla.getAprobacion());			
+			plantillaActual.setContenido_plantilla(plantilla.getContenido_plantilla());
+
+
+			plantillaUpdated = plantillaService.save(plantillaActual);
+			
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al insertar en la base de datos");
+			response.put("Error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("text", "ok");
+		response.put("plantilla", plantillaUpdated);		response.put("plantilla", plantillaUpdated);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);	
+		
+	}
 
 }

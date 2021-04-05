@@ -14,52 +14,40 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "producto")
-public class Producto implements Serializable{
+@Table(name = "variables")
+public class Variables implements Serializable{
 
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@SequenceGenerator(name = "producto", sequenceName = "producto_id_seq", allocationSize = 1, initialValue = 100)
+	@SequenceGenerator(name = "variables_seq", sequenceName = "variable_id_seq", allocationSize = 1, initialValue = 100)
 	@Basic(optional = false)
-	@Column(name = "id_producto")
-	private Long id_producto;
+	@Column(name = "id_variable")
+	private Long idVariable;
 	
 	@NotEmpty
-	@Size(min=4, max=30)
+	@Size(min = 4, max = 30)
 	@Column(nullable = false)
-	private String Nombre;
-	
-	@NotEmpty
-	@Size(min=4, max=100)
-	@Column(nullable = false)
-	private String Descripcion;
+	private String nombre;
 	
 	
-	
-	public Long getId_producto() {
-		return id_producto;
+	public Long getIdVariable() {
+		return idVariable;
 	}
-	public void setId_producto(Long id_producto) {
-		this.id_producto = id_producto;
+	public void setIdVariable(Long idVariable) {
+		this.idVariable = idVariable;
 	}
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
-	public String getDescripcion() {
-		return Descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
-	}
-	
 	
 	
 }

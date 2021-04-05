@@ -2,13 +2,18 @@ package com.banorte.backend.contrato.models.entity;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+
+@Entity
+@Table(name = "detalle_agrupacion")
 public class Detalle_agrupacion {
 
 	
